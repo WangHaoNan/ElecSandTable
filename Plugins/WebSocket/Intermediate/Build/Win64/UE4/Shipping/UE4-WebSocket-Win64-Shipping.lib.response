@@ -1,0 +1,9 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/LTCG
+"F:\ProductDepot\ZiXingCheStandAloneZH\Plugins\WebSocket\Intermediate\Build\Win64\UE4\Shipping\WebSocket\Module.WebSocket.cpp.obj"
+"F:\ProductDepot\ZiXingCheStandAloneZH\Plugins\WebSocket\Intermediate\Build\Win64\UE4\Shipping\WebSocket\WebSocket.generated.cpp.obj"
+"F:\ProductDepot\ZiXingCheStandAloneZH\Intermediate\Build\Win64\UE4\Shipping\WebSocket\PCLaunch.rc.res"
+/OUT:"F:\ProductDepot\ZiXingCheStandAloneZH\Plugins\WebSocket\Binaries\Win64\UE4-WebSocket-Win64-Shipping.lib"

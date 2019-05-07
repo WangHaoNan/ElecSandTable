@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-WebSocket.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"E:\Epic Games Engines\UE_4.16\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\SharedPCH.Engine.h.obj"
+"F:\ProductDepot\ZiXingCheStandAloneZH\Plugins\WebSocket\Intermediate\Build\Win64\UE4Editor\Development\WebSocket\Module.WebSocket.cpp.obj"
+"F:\ProductDepot\ZiXingCheStandAloneZH\Plugins\WebSocket\Intermediate\Build\Win64\UE4Editor\Development\WebSocket\WebSocket.generated.cpp.obj"
+"E:\Epic Games Engines\UE_4.16\Engine\Intermediate\Build\Win64\UE4Editor\Development\WebSocket\PCLaunch.rc.res"
+"E:\Epic Games Engines\UE_4.16\Engine\Intermediate\Build\Win64\UE4Editor\Development\ModuleVersionResource.rc.inl.res"
+/OUT:"F:\ProductDepot\ZiXingCheStandAloneZH\Plugins\WebSocket\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-WebSocket.lib"
