@@ -2,6 +2,34 @@
 
 #include "ElecSandTableGameModeBase.h"
 
+AElecSandTableGameModeBase::AElecSandTableGameModeBase()
+{
+
+}
+
+AElecSandTableGameModeBase::~AElecSandTableGameModeBase()
+{
+	
+}
+
+void AElecSandTableGameModeBase::BeginPlay()
+{
+	Super::BeginPlay();
+	m_WholeMgr.Begin();
 
 
+}
 
+void AElecSandTableGameModeBase::Tick(float DeltaSeconds)
+{
+	m_WholeMgr.TickTime(DeltaSeconds);
+
+}
+
+void AElecSandTableGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	m_WholeMgr.Finish();
+
+
+	Super::EndPlay(EndPlayReason);
+}
