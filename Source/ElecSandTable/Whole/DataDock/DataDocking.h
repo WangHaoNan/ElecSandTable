@@ -10,27 +10,33 @@
 #include "Runtime/JsonUtilities/Public/JsonObjectWrapper.h"
 #include "Json.h"
 #include "Http.h"
-#include "../WholeState.h"
-
+#include <Runtime/CoreUObject/Public/UObject/NoExportTypes.h>
+#include <Runtime/Engine/Classes/Engine/StreamableManager.h>
+#include <Runtime/Engine/Classes/Engine/AssetManager.h>
+#include "../WholeStateObj.h"
+#include <Runtime/Core/Public/Async/AsyncWork.h>
 #include "DataDocking.generated.h"
 
-USTRUCT()
-struct FInitData
-{
-	GENERATED_BODY()
-	FString InitBegin;
 
-};
 
 
 
 UCLASS()
-class ELECSANDTABLE_API UDataDocking : public UObject
+class ELECSANDTABLE_API UDataDocking : public UObject , public FNonAbandonableTask
 {
 	GENERATED_BODY()
 public:
 	UDataDocking();
 	~UDataDocking();
+	FORCEINLINE TStatId GetStatId() const
+	{
+		RETURN_QUICK_DECLARE_CYCLE_STAT(PrimeCalculationAsyncTask, STATGROUP_ThreadPoolAsyncTasks);
+	}
+
+	void DoWork();
+	//add parameter
+
+
 
 public:
 	void Begin();
@@ -64,8 +70,9 @@ private:
 	void GetStructFromJsonString(FHttpResponsePtr Response, StructType& StructOutput);
 
 
-
+	//声明http模式
 	FHttpModule* m_pHttp;
+	//请求地址
 	FString m_Url;
 
 };

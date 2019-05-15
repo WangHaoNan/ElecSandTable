@@ -13,8 +13,11 @@ WholeMgr::~WholeMgr()
 void WholeMgr::Begin()
 {
 	m_pDataDocking = NewObject<UDataDocking>();
+	//auto tast = new FAutoDeleteAsyncTask<>
+
 	m_pDataDocking->AddToRoot();
 	m_pDataDocking->Begin();
+	
 
 
 

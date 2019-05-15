@@ -22,6 +22,4 @@ public:
 	UDataDocking *m_pDataDocking;
 
 
-
-
 };

@@ -13,10 +13,38 @@ UDataDocking::~UDataDocking()
 {
 }
 
-void UDataDocking::Begin()
+void UDataDocking::DoWork()
 {
+}
+
+void UDataDocking::Begin()
+{                            
 	m_pHttp = &FHttpModule::Get();
 	m_Url = "http";
+	//异步任务
+	AsyncTask(ENamedThreads::GameThread, [&]()
+	{
+		//TODO
+		//DataRequestFromServers();
+		//测试用
+		for (int32 i = 1; i <= 20000; i++)
+		{
+			bool isPrime = true;
+			for (int32 j = 2; j <= i / 2; j++)
+			{
+				if (FMath::Fmod(i, j) == 0)
+				{
+					isPrime = false;
+					break;
+				}
+			}
+			if (isPrime)
+				GLog->Log("Prime number #" + FString::FromInt(i) + ": " + FString::FromInt(i));
+		}
+	}
+	);
+	
+	GLog->Log("SyncTask!!!!");
 
 
 }
@@ -38,26 +66,20 @@ void UDataDocking::DataRequestFromServers()
 	//将结构体转换为JsonString
 	GetJsonStringFromStruct(m_Initdata, JsonStr);
 	//将JsonString设置到Request中
-	//TSharedRef<IHttpRequest> Request = PostRequset("subroute", JsonStr);
+	TSharedRef<IHttpRequest> Request = PostRequset("subroute", JsonStr);
 	//设置响应函数
-	//Request->OnProcessRequestComplete().BindUObject(this, &UDataDocking::OnResponseReceived);
+	Request->OnProcessRequestComplete().BindUObject(this, &UDataDocking::OnResponseReceived);
 	//发送数据
-	//Send(Request);
+	Send(Request);
 
 }
 
 void UDataDocking::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bIsSuccessful)
 {
-	
-
-	//EquipmentDetailInfo m_equiDetailInfo;
-	//GetStructFromJsonString(Response, m_equiDetailInfo);
-
-
-
-
-
-
+	//
+	Request->OnProcessRequestComplete().Unbind();
+	FEquipmentDetailInfo m_equiDetailInfo;
+	GetStructFromJsonString(Response, m_equiDetailInfo);
 
 
 
