@@ -10,15 +10,15 @@ WholeMgr::~WholeMgr()
 {
 }
 
-void WholeMgr::Begin()
+void WholeMgr::Init()
 {
 	m_pDataDocking = NewObject<UDataDocking>();
-	//auto tast = new FAutoDeleteAsyncTask<>
-
 	m_pDataDocking->AddToRoot();
-	m_pDataDocking->Begin();
+	m_pDataDocking->Init();
 	
-
+	m_pEquipmentDataTable = NewObject<UEquipmentDataTable>();
+	m_pEquipmentDataTable->AddToRoot();
+	m_pEquipmentDataTable->Init();
 
 
 }

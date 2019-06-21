@@ -2,12 +2,18 @@
 
 #include "EquipmentDataTable.h"
 
-void UEquipmentDataTable::Begin()
+void UEquipmentDataTable::Init()
 {
-	UObject* obj=
+	TArray<FEquipmentTableStruct*> aEquipmentStruct;
+	UDataTable* datatable = LoadObject<UDataTable>(NULL, TEXT(""));
+	datatable->GetAllRows<FEquipmentTableStruct>(TEXT("EquipmentTable Csv"), aEquipmentStruct);
 
-
-
+	for (int i=0;i<aEquipmentStruct.Num();++i)
+	{
+		m_mEquipmentMap.Add(aEquipmentStruct[i]->EquipmentID, aEquipmentStruct[i]->EquipmentPath);
+	}
+	
+	//m_mEquipmentMap.Add()
 
 }
 

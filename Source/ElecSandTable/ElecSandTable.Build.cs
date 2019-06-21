@@ -16,6 +16,7 @@ public class ElecSandTable : ModuleRules
 
         DynamicallyLoadedModuleNames.Add("OnlineSubsystemNull");
 
+        bEnableUndefinedIdentifierWarnings = false;
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 

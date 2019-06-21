@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "DataDock/DataDocking.h"
+#include "DataTable/EquipmentDataTable.h"
 
 /**
  * 
@@ -15,11 +16,12 @@ public:
 	~WholeMgr();
 
 
-	void Begin();
+	void Init();
 	void TickTime(float DeltaSecond);
 	void Finish();
 
 	UDataDocking *m_pDataDocking;
+	UEquipmentDataTable* m_pEquipmentDataTable;
 
 
 };

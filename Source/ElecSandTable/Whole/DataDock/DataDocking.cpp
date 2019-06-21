@@ -17,7 +17,7 @@ void UDataDocking::DoWork()
 {
 }
 
-void UDataDocking::Begin()
+void UDataDocking::Init()
 {                            
 	m_pHttp = &FHttpModule::Get();
 	m_Url = "http";
@@ -62,7 +62,9 @@ void UDataDocking::DataRequestFromServers()
 	//
 	FString JsonStr;
 	FInitData m_Initdata;
+
 	m_Initdata.InitBegin = "Begin";
+	
 	//将结构体转换为JsonString
 	GetJsonStringFromStruct(m_Initdata, JsonStr);
 	//将JsonString设置到Request中
@@ -76,32 +78,12 @@ void UDataDocking::DataRequestFromServers()
 
 void UDataDocking::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bIsSuccessful)
 {
-	//
 	Request->OnProcessRequestComplete().Unbind();
-	FEquipmentDetailInfo m_equiDetailInfo;
-	GetStructFromJsonString(Response, m_equiDetailInfo);
+
+	GetStructArrayFromJsonString(Response, m_aEquipmentBaseInfo);
 
 
 
-
-	//bool bIsSuccess = false;
-
-	//FString ContentString = Response->GetContentAsString();
-	//TSharedPtr<FJsonObject> JsonObj;
-	//TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(ContentString);
-	//if (FJsonSerializer::Deserialize(Reader,JsonObj))
-	//{
-	//	
-
-	//	TMap<FString, TSharedPtr<FJsonValue>> Values = JsonObj->Values;
-	//	for (auto It=Values.CreateIterator();It;++It)
-	//	{
-	//		//TO DO
-	//		
-
-
-	//	}
-	//}
 }
 
 TSharedRef<IHttpRequest> UDataDocking::RequestWithRoute(FString SubRoute)
@@ -119,9 +101,9 @@ void UDataDocking::SetRequestHeaders(TSharedRef<IHttpRequest>& Request)
 	Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
 }
 
+
 TSharedRef<IHttpRequest> UDataDocking::GetRequest(FString SubRoute)
 {
-
 	TSharedRef<IHttpRequest> Request = RequestWithRoute(SubRoute);
 	Request->SetVerb("GET");
 	return Request;
@@ -154,9 +136,12 @@ bool UDataDocking::ResponeValid(FHttpResponsePtr Response, bool bWasSuccessful)
 	{
 		//输出日志信息，给出错误代码.
 	}
-
-
-
 	return false;
+}
+//转换响应基本数据
+void UDataDocking::GetStructArrayFromJsonString(FHttpResponsePtr Response, TArray<FEquipmentBaseInfo> StructOutput)
+{
+	FString JsonString = Response->GetContentAsString();
+	FJsonObjectConverter::JsonArrayStringToUStruct<FEquipmentBaseInfo>(JsonString, &StructOutput, 0, 0);
 }
 

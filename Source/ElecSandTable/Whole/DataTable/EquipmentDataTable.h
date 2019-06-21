@@ -8,22 +8,21 @@
 #include "EquipmentDataTable.generated.h"
 
 USTRUCT(Blueprintable)
-struct FEquipmentTable:public FTableRowBase
+struct FEquipmentTableStruct:public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
-
+public:
+	FEquipmentTableStruct() :EquipmentID(""), EquipmentPath("")
+	{
+	}
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EquipmentTable")
 		FString EquipmentID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EquipmentTable")
 		FString EquipmentPath;
 
 };
 
 
-struct EquiTable
-{
-	FString m_EquipmentID;
-	FString m_EquipmentPath;
-};
-EquiTable m_EquiTable;
 
 
 
@@ -34,9 +33,11 @@ class ELECSANDTABLE_API UEquipmentDataTable : public UObject
 {
 	GENERATED_BODY()
 
-		void Begin();
+public:
+	void Init();
 	void Finish();
 
-
+private:
+	TMap<FString, FString> m_mEquipmentMap;
 
 };

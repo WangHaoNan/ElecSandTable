@@ -15,7 +15,7 @@ AElecSandTableGameModeBase::~AElecSandTableGameModeBase()
 void AElecSandTableGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
-	m_WholeMgr.Begin();
+	m_WholeMgr.Init();
 
 
 }

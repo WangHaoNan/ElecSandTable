@@ -39,7 +39,7 @@ public:
 
 
 public:
-	void Begin();
+	void Init();
 	void TickTime(float DeltaSeconds);
 	void Finish();
 
@@ -65,15 +65,23 @@ private:
 	//JsonStringToStruct
 	template <typename StructType>
 	void GetJsonStringFromStruct(StructType FilledStruct, FString& StringOutput);
+
 	//StructToJsonString
 	template <typename StructType>
 	void GetStructFromJsonString(FHttpResponsePtr Response, StructType& StructOutput);
+
+
+	//StructArrayToJsonString
+	void GetStructArrayFromJsonString(FHttpResponsePtr Response, TArray<FEquipmentBaseInfo> StructOutput);
 
 
 	//声明http模式
 	FHttpModule* m_pHttp;
 	//请求地址
 	FString m_Url;
+
+	//接收设备基础信息
+	TArray<FEquipmentBaseInfo > m_aEquipmentBaseInfo;
 
 };
 
@@ -87,8 +95,11 @@ inline void UDataDocking::GetJsonStringFromStruct(StructType FilledStruct, FStri
 template<typename StructType>
 inline void UDataDocking::GetStructFromJsonString(FHttpResponsePtr Response, StructType & StructOutput)
 {
-	StructType StructData;
+	//StructType StructData;
 	FString JsonString = Response->GetContentAsString();
 	FJsonObjectConverter::JsonObjectStringToUStruct<StructType>(JsonString, &StructOutput, 0, 0);
 
 }
+
+
+
